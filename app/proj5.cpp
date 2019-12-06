@@ -30,6 +30,7 @@ bool isMinHeap(std::string s) {
 
 
 void doSomeSort(std::vector<std::string> &vec) {
+    std::sort(vec.begin(), vec.end());
 
 }
 
@@ -38,7 +39,11 @@ std::vector<std::string> findHeaps(std::istream &in) {
     std::vector<std::string> foo;
     std::string tmp;
     while (in >> tmp) {
-        foo.push_back(tmp);
+        if(isMinHeap(tmp)){
+
+            foo.push_back(tmp);
+        }
     }
+    doSomeSort(foo);
     return foo;
 }
