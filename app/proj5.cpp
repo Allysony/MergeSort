@@ -39,46 +39,49 @@ bool isMinHeap(std::string s) {
  *  given sorted vectors right and left, return sorted vector containing elements of right and left
  *
  */
-void merge(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right){
+void merge(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right) {
     int leftSize = left.size();
     int rightSize = right.size();
 
     // Loop Counters
-    int vecLoop = 0;
-    int leftLoop = 0;
-    int rightLoop = 0;
+    int vecCounter = 0;
+    int leftCounter = 0;
+    int rightCounter = 0;
 
-    while (leftLoop < leftSize and rightLoop < rightSize)
-    {
+    while (leftCounter < leftSize and rightCounter < rightSize) {
         // if left curr value is smaller than right curr value
-        if (left[leftLoop] < right[rightLoop]) {
+        if (left[leftCounter] < right[rightCounter]) {
             // copy left current to vec
-            vec[vecLoop] = left[leftLoop];
+            vec[vecCounter] = left[leftCounter];
 
-            leftLoop++;
+            leftCounter++;
         }
-        // if right curr value is smaller than left curr value
+            // if right curr value is smaller than left curr value
         else {
             // copy right current to vec
-            vec[vecLoop] = right[rightLoop];
-            rightLoop++;
+            vec[vecCounter] = right[rightCounter];
+            rightCounter++;
         }
-        vecLoop++;
+        vecCounter++;
     }
-    while (leftLoop < leftSize) {
+    while (leftCounter < leftSize) {
         // copy the remaining elements of left to vec
-        vec[vecLoop] = left[leftLoop];
-        leftLoop++;
-        vecLoop++;
+        vec[vecCounter] = left[leftCounter];
+        leftCounter++;
+        vecCounter++;
     }
-    while (rightLoop < rightSize) {
+    while (rightCounter < rightSize) {
         // copy the remaining elements of right to vec
-        vec[vecLoop] = right[rightLoop];
-        rightLoop++;
-        vecLoop++;
+        vec[vecCounter] = right[rightCounter];
+        rightCounter++;
+        vecCounter++;
     }
+
+
+
+
     for (int i = 0; i < vec.size(); ++i) {
-        std::cout<<vec[i] << " ";
+        std::cout << vec[i] << " ";
     }
     std::cout << std::endl;
 }
@@ -133,7 +136,7 @@ std::vector<std::string> findHeaps(std::istream &in) {
     std::vector<std::string> foo;
     std::string tmp;
     while (in >> tmp) {
-        if(isMinHeap(tmp)){
+        if (isMinHeap(tmp)) {
             foo.push_back(tmp);
         }
     }
