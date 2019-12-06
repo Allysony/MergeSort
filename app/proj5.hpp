@@ -28,8 +28,8 @@ void doSomeSort(std::vector<std::string> & vec);
 // Return a SORTED vector of which elements of the
 // given input stream are min heaps. 
 std::vector<std::string> findHeaps(std::istream & in);
-template<class Iter>
-void mergeSort(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right);
+
+void merge(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right);
 
 
 

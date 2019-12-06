@@ -29,52 +29,83 @@ bool isMinHeap(std::string s) {
     return true;
 }
 
-//
-//template<class Iter>
-//void mergeSort(Iter beg, Iter end)
-//{
-//    auto len = std::distance(beg,end);
-//    if (len < 2)
-//        return;
-//
-//    Iter mid = std::next(beg,len/2);
-//    mergeSort(beg, mid);
-//    mergeSort(mid, end);
-//    std::inplace_merge(beg, mid, end);
-//}
 
-void mergeSort(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right){
+/**
+ *
+ * @param vec
+ * @param left
+ * @param right
+ *
+ *  given sorted vectors right and left, return sorted vector containing elements of right and left
+ *
+ */
+void merge(std::vector<std::string> &vec, std::vector<std::string> &left, std::vector<std::string> &right){
     int leftSize = left.size();
     int rightSize = right.size();
-    int i = 0, j = 0, k = 0;
 
-    while (j < leftSize && k < rightSize)
+    // Loop Counters
+    int vecLoop = 0;
+    int leftLoop = 0;
+    int rightLoop = 0;
+
+    while (leftLoop < leftSize and rightLoop < rightSize)
     {
-        if (left[j] < right[k]) {
-            vec[i] = left[j];
-            j++;
+        // if left curr value is smaller than right curr value
+        if (left[leftLoop] < right[rightLoop]) {
+            // copy left current to vec
+            vec[vecLoop] = left[leftLoop];
+
+            leftLoop++;
         }
+        // if right curr value is smaller than left curr value
         else {
-            vec[i] = right[k];
-            k++;
+            // copy right current to vec
+            vec[vecLoop] = right[rightLoop];
+            rightLoop++;
         }
-        i++;
+        vecLoop++;
     }
-    while (j < leftSize) {
-        vec[i] = left[j];
-        j++; i++;
+    while (leftLoop < leftSize) {
+        // copy the remaining elements of left to vec
+        vec[vecLoop] = left[leftLoop];
+        leftLoop++;
+        vecLoop++;
     }
-    while (k < rightSize) {
-        vec[i] = right[k];
-        k++; i++;
+    while (rightLoop < rightSize) {
+        // copy the remaining elements of right to vec
+        vec[vecLoop] = right[rightLoop];
+        rightLoop++;
+        vecLoop++;
     }
+    for (int i = 0; i < vec.size(); ++i) {
+        std::cout<<vec[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
+/**
+ *
+ * @param vec
+ *
+ * utilizes divide and conquer pattern
+ *
+ * if vec is smaller than 2 then do not sort, if greater then recursively split vec smaller
+ *
+ * then take sub vecs (rights and lefts) and merge them into vec
+ *
+ */
 void doSomeSort(std::vector<std::string> &vec) {
-    // std::sort(vec.begin(), vec.end());   //  <---- stub stub stub
+
+    // **************----------------------------DIVIDE-----------------------**************
+
+    // if vec has zero or one element, do nothing
+
+
+    //if vec has at least 2 elements
     if (vec.size() > 1) {
 
-        int mid = vec.size() / 2;
+        // divide vec in about half into left and right sub vecs
+        int mid = (int) vec.size() / 2;
         std::vector<std::string> left;
         std::vector<std::string> right;
 
@@ -83,9 +114,14 @@ void doSomeSort(std::vector<std::string> &vec) {
         for (int i = 0; i < (vec.size()) - mid; i++)
             right.push_back(vec[mid + i]);
 
+
+        // **********----------------------------RECUR-----------------------**************
         doSomeSort(left);
         doSomeSort(right);
-        mergeSort(vec, left, right);
+
+
+        // **********----------------------------CONQUER-----------------------**************
+        merge(vec, left, right);
 
     }
 
